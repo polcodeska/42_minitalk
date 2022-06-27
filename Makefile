@@ -1,3 +1,4 @@
+NAME		:= minitalk
 SERVER		:= server
 CLIENT		:= client
 CC			:= gcc
@@ -9,7 +10,9 @@ SRC			:=	server.c \
 
 OBJ			:=	$(SRC:.c=.o)
 
-all : $(SERVER) $(CLIENT)
+all : $(NAME)
+
+$(NAME) : $(SERVER) $(CLIENT)
 
 $(SERVER) : $(OBJ)
 	@$(CC) server.o -o $@

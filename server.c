@@ -1,8 +1,18 @@
-#include <unistd.h>
-#include <signal.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/29 16:24:51 by tmasur            #+#    #+#             */
+/*   Updated: 2022/06/29 16:29:39 by tmasur           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void        sighandler(int signum)
+#include "minitalk.h"
+
+void	sighandler(int signum)
 {
 	static char	a = 0;
 	static int	bitwidth = 8;
@@ -19,13 +29,16 @@ void        sighandler(int signum)
 	}
 }
 
-int main(void)
+int	main(void)
 {
-	pid_t pid = getpid();
+	pid_t	pid;
+
+	pid = getpid();
 	printf("%d\n", pid);
 	signal(SIGUSR1, sighandler);
 	signal(SIGUSR2, sighandler);
 	write(1, "Läuft", 6);
-	while (1);
+	while (1)
+		;
 	return (0);
 }

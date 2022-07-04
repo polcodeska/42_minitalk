@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 16:23:21 by tmasur            #+#    #+#             */
-/*   Updated: 2022/07/04 10:04:01 by tmasur           ###   ########.fr       */
+/*   Created: 2021/11/20 18:30:06 by tmasur            #+#    #+#             */
+/*   Updated: 2022/01/18 23:37:10 by tmasur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include "libft/libft.h"
+char	*ft_strnstr(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+	size_t	j;
 
-char	get_char_to_send(char **message_to_send);
-int		is_bit_to_send_one(char *c);
-void	send_bits(pid_t pid, char *message);
-void	sighandler(int signum,
-			siginfo_t *info __attribute__((unused)),
-			void *context __attribute__((unused)));
-#endif
+	i = 0;
+	if (!*s2)
+		return ((char *)s1);
+	while (*(s1 + i) && i < n)
+	{
+		j = 0;
+		while (*(s1 + i + j) && i + j < n && *(s1 + i + j) == *(s2 + j))
+		{
+			if (!*(s2 + j + 1))
+				return ((char *)s1 + i);
+			j++;
+		}
+		i++;
+	}
+	return (NULL);
+}

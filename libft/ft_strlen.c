@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 16:23:21 by tmasur            #+#    #+#             */
-/*   Updated: 2022/07/04 10:04:01 by tmasur           ###   ########.fr       */
+/*   Created: 2021/11/19 18:43:50 by tmasur            #+#    #+#             */
+/*   Updated: 2022/01/18 23:36:32 by tmasur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include "libft/libft.h"
+size_t	ft_strlen(const char *s)
+{
+	const char	*ptr_s;
 
-char	get_char_to_send(char **message_to_send);
-int		is_bit_to_send_one(char *c);
-void	send_bits(pid_t pid, char *message);
-void	sighandler(int signum,
-			siginfo_t *info __attribute__((unused)),
-			void *context __attribute__((unused)));
-#endif
+	ptr_s = s;
+	while (*ptr_s)
+		ptr_s++;
+	return (ptr_s - s);
+}

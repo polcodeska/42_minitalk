@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 16:23:21 by tmasur            #+#    #+#             */
-/*   Updated: 2022/07/04 10:04:01 by tmasur           ###   ########.fr       */
+/*   Created: 2021/11/25 11:06:54 by tmasur            #+#    #+#             */
+/*   Updated: 2022/01/18 23:34:27 by tmasur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include "libft/libft.h"
+void	ft_putnbr_fd(int n, int fd)
+{
+	long	r;
 
-char	get_char_to_send(char **message_to_send);
-int		is_bit_to_send_one(char *c);
-void	send_bits(pid_t pid, char *message);
-void	sighandler(int signum,
-			siginfo_t *info __attribute__((unused)),
-			void *context __attribute__((unused)));
-#endif
+	r = n;
+	if (r < 0)
+	{
+		ft_putchar_fd('-', fd);
+		r = -r;
+	}
+	if (r >= 10)
+		ft_putnbr_fd(r / 10, fd);
+	ft_putchar_fd(r % 10 + '0', fd);
+}

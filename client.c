@@ -6,11 +6,29 @@
 /*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:23:41 by tmasur            #+#    #+#             */
-/*   Updated: 2022/06/29 16:31:16 by tmasur           ###   ########.fr       */
+/*   Updated: 2022/07/04 10:06:25 by tmasur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+int	main(int argc, char *argv[])
+{
+	struct sigaction	my_sigact;
+
+	my_sigact.sa_handler = 0;
+	sigfillset(&my_sigact.sa_mask);
+	my_sigact.sa_sigaction = sighandler;
+	my_sigact.sa_flags = SA_SIGINFO | SA_RESTART;
+	if (sigaction(SIGUSR1, &my_sigact, NULL) == -1)
+		perror("SIGACTION");
+	if (argc != 3)
+		return (0);
+	send_bits(atoi(argv[1]), argv[2]);
+	while (pause())
+		;
+	return (0);
+}
 
 char	get_char_to_send(char **message_to_send)
 {
@@ -19,7 +37,7 @@ char	get_char_to_send(char **message_to_send)
 	return ((*(*message_to_send)++));
 }
 
-int		is_bit_to_send_one(char *c)
+int	is_bit_to_send_one(char *c)
 {
 	int	bit;
 
@@ -28,12 +46,12 @@ int		is_bit_to_send_one(char *c)
 	return (bit);
 }
 
-void send_bits(pid_t pid, char *message)
+void	send_bits(pid_t pid, char *message)
 {
-	static pid_t pid_s;
-	static char *message_to_send;
-	static char char_to_send;
-	static int bit_to_send = 8;
+	static pid_t	pid_s;
+	static char		*message_to_send;
+	static char		char_to_send;
+	static int		bit_to_send = 8;
 
 	if (pid)
 		pid_s = pid;
@@ -55,22 +73,4 @@ void	sighandler(int signum,
 {
 	if (signum == SIGUSR1)
 		send_bits(0, 0);
-}
-
-int	main(int argc, char *argv[])
-{
-	struct sigaction my_sigact;
-
-	my_sigact.sa_handler = 0;
-	sigfillset(&my_sigact.sa_mask);
-	my_sigact.sa_sigaction = sighandler;
-	my_sigact.sa_flags = SA_SIGINFO | SA_RESTART;
-	if (sigaction(SIGUSR1, &my_sigact, NULL) == -1)
-		perror("SIGACTION");
-	if (argc != 3)
-		return (0);
-	send_bits(atoi(argv[1]), argv[2]);
-	while (pause())
-		;
-	return (0);
 }

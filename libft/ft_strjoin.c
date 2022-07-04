@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 16:23:21 by tmasur            #+#    #+#             */
-/*   Updated: 2022/07/04 10:04:01 by tmasur           ###   ########.fr       */
+/*   Created: 2021/11/25 10:31:12 by tmasur            #+#    #+#             */
+/*   Updated: 2022/01/18 23:35:49 by tmasur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include "libft/libft.h"
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*r1;
+	char	*r2;
 
-char	get_char_to_send(char **message_to_send);
-int		is_bit_to_send_one(char *c);
-void	send_bits(pid_t pid, char *message);
-void	sighandler(int signum,
-			siginfo_t *info __attribute__((unused)),
-			void *context __attribute__((unused)));
-#endif
+	if (!s1 || !s2)
+		return (NULL);
+	r1 = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!r1)
+		return (NULL);
+	r2 = r1;
+	while (*s1)
+		*(r1++) = *s1++;
+	while (*s2)
+		*(r1++) = *s2++;
+	*(r1) = '\0';
+	return (r2);
+}

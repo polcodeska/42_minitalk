@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 16:23:21 by tmasur            #+#    #+#             */
-/*   Updated: 2022/07/04 10:04:01 by tmasur           ###   ########.fr       */
+/*   Created: 2021/11/22 14:34:03 by tmasur            #+#    #+#             */
+/*   Updated: 2022/01/18 23:35:21 by tmasur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include "libft/libft.h"
+char	*ft_strdup(const char *s)
+{
+	char	*r1;
+	char	*r2;
 
-char	get_char_to_send(char **message_to_send);
-int		is_bit_to_send_one(char *c);
-void	send_bits(pid_t pid, char *message);
-void	sighandler(int signum,
-			siginfo_t *info __attribute__((unused)),
-			void *context __attribute__((unused)));
-#endif
+	r1 = malloc(ft_strlen(s) + 1);
+	if (!r1 || !s)
+		return (NULL);
+	r2 = r1;
+	while (*s)
+		*r1++ = *s++;
+	*r1 = '\0';
+	return (r2);
+}

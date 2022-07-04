@@ -14,12 +14,12 @@ all : $(NAME)
 
 $(NAME) : $(SERVER) $(CLIENT)
 
-$(SERVER) : $(OBJ)
-	@$(CC) server.o -o $@
+$(SERVER) : $(SERVER).o
+	@$(CC) $(SERVER).o -o $@
 	@printf "\e[38;5;226m./$@ successfully build\e[0m\n"
 
-$(CLIENT) : $(OBJ)
-	@$(CC) client.o -o $@
+$(CLIENT) : $(CLIENT).o
+	@$(CC) $(CLIENT).o -o $@
 	@printf "\e[38;5;46m./$@ successfully build\e[0m\n"
 
 %.o: %.c
@@ -30,7 +30,7 @@ clean :
 	@printf "\e[38;5;206m.o files deleted\e[0m\n"
 
 fclean: clean
-	@rm -f $(SERVER) $(CLIENT)
+	@rm -f $(SERVER) $(CLIENT) *.o
 	@printf "\e[38;5;200mBinaries deleted\e[0m\n"
 
 re: fclean all

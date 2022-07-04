@@ -12,33 +12,38 @@
 
 #include "minitalk.h"
 
-void	sighandler(int signum)
+void	sighandler(int signum, siginfo_t *info,
+			void *context __attribute__((unused)))
 {
-	static char	a = 0;
-	static int	bitwidth = 8;
+	static char	c = 0;
+	static int	bits_need = 8;
 
 	if (signum == SIGUSR1)
-		a |= 1;
-	if (--bitwidth > 0)
-		a <<= 1;
+		c |= 1;
+	if (--bits_need > 0)
+		c <<= 1;
 	else
 	{
-		write(1, &a, 1);
-		bitwidth = 8;
-		a = 0;
+		write(1, &c, 1);
+		bits_need = 8;
+		c = 0;
 	}
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(void)
 {
-	pid_t	pid;
+	struct sigaction sa;
 
-	pid = getpid();
-	printf("%d\n", pid);
-	signal(SIGUSR1, sighandler);
-	signal(SIGUSR2, sighandler);
-	write(1, "Läuft", 6);
-	while (1)
+	sa.sa_handler = 0;
+	sa.sa_sigaction = sighandler;
+	sigfillset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO | SA_RESTART;
+	printf("%d\n", getpid());
+	if (sigaction(SIGUSR1, &sa, NULL) == -1 || \
+		sigaction(SIGUSR2, &sa, NULL) == -1)
+		perror("SIGACTION");
+	while (pause());
 		;
 	return (0);
 }

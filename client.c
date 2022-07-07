@@ -6,7 +6,7 @@
 /*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:23:41 by tmasur            #+#    #+#             */
-/*   Updated: 2022/07/04 10:06:25 by tmasur           ###   ########.fr       */
+/*   Updated: 2022/07/07 11:11:13 by tmasur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	send_bits(pid_t pid, char *message)
 		char_to_send = get_char_to_send(&message_to_send);
 	if (--bit_to_send == 0)
 		bit_to_send = 8;
+	usleep(20);
 	if (is_bit_to_send_one(&char_to_send))
 		kill(pid_s, SIGUSR1);
 	else

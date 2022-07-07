@@ -6,7 +6,7 @@
 /*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:23:21 by tmasur            #+#    #+#             */
-/*   Updated: 2022/07/04 10:04:01 by tmasur           ###   ########.fr       */
+/*   Updated: 2022/07/07 17:08:38 by tmasur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <signal.h>
 # include <unistd.h>
-# include <stdlib.h>
 # include <stdio.h>
 # include "libft/libft.h"
 

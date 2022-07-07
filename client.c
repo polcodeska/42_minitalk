@@ -6,7 +6,7 @@
 /*   By: tmasur <tmasur@mail.de>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:23:41 by tmasur            #+#    #+#             */
-/*   Updated: 2022/07/07 11:11:13 by tmasur           ###   ########.fr       */
+/*   Updated: 2022/07/07 17:06:48 by tmasur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char *argv[])
 		perror("SIGACTION");
 	if (argc != 3)
 		return (0);
-	send_bits(atoi(argv[1]), argv[2]);
+	send_bits(ft_atoi(argv[1]), argv[2]);
 	while (pause())
 		;
 	return (0);
